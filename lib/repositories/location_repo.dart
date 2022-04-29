@@ -1,6 +1,5 @@
 import 'package:dio/dio.dart';
 import 'package:popaket/utils/url.dart';
-import '../utils/url.dart';
 
 class LocationRepo {
   late Dio _dio;
