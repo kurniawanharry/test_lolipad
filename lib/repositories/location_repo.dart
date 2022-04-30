@@ -1,5 +1,12 @@
+import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
+import 'package:popaket/models/cities/cities_model.dart';
 import 'package:popaket/utils/url.dart';
+
+import '../models/districts/districts_model.dart';
+import '../models/postalcode/postalcode_model.dart';
+import '../models/provinces/provinces_model.dart';
+import '../models/subdistrict/subdistrict_model.dart';
 
 class LocationRepo {
   late Dio _dio;
@@ -12,33 +19,53 @@ class LocationRepo {
     );
   }
 
-  getCities() async {
+  Future<Either<String, CitiesModel>> getCities() async {
     try {
       var response = await _dio.get(citiesUrl!);
-    } on DioError catch (error) {}
+      var result = CitiesModel.fromJson(response.data);
+      return Right(result);
+    } on DioError catch (error) {
+      return Left(error.message);
+    }
   }
 
-  getDistricts() async {
+  Future<Either<String, DistrictsModel>> getDistricts() async {
     try {
       var response = await _dio.get(districtsUrl!);
-    } on DioError catch (error) {}
+      var result = DistrictsModel.fromJson(response.data);
+      return Right(result);
+    } on DioError catch (error) {
+      return Left(error.message);
+    }
   }
 
-  postPostalCode() async {
+  Future<Either<String, PostalcodeModel>> postPostalcode() async {
     try {
-      var response = await _dio.get(postalcodeUrl!);
-    } on DioError catch (error) {}
+      var response = await _dio.post(postalcodeUrl!);
+      var result = PostalcodeModel.fromJson(response.data);
+      return Right(result);
+    } on DioError catch (error) {
+      return Left(error.message);
+    }
   }
 
-  getProvinces() async {
+  Future<Either<String, ProvincesModel>> getProvinces() async {
     try {
       var response = await _dio.get(provincesUrl!);
-    } on DioError catch (error) {}
+      var result = ProvincesModel.fromJson(response.data);
+      return Right(result);
+    } on DioError catch (error) {
+      return Left(error.message);
+    }
   }
 
-  getsubDistricts() async {
+  Future<Either<String, SubdistrictModel>> getSubdistrict() async {
     try {
       var response = await _dio.get(subDistrictsUrl!);
-    } on DioError catch (error) {}
+      var result = SubdistrictModel.fromJson(response.data);
+      return Right(result);
+    } on DioError catch (error) {
+      return Left(error.message);
+    }
   }
 }

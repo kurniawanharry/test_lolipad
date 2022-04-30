@@ -1,6 +1,3 @@
-
-import 'package:popaket/models/auth_model/auth.dart';
-
 part of 'auth_cubit.dart';
 
 @immutable

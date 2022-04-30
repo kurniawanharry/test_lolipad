@@ -1,20 +1,10 @@
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:popaket/cubit/location/location_state.dart';
+import 'package:bloc/bloc.dart';
+import 'package:meta/meta.dart';
+import 'package:popaket/models/cities/cities_model.dart';
+import 'package:popaket/models/provinces/provinces_model.dart';
+
+part 'location_state.dart';
 
 class LocationCubit extends Cubit<LocationState> {
-	LocationCubit() : super(LocationState(isLoading: true));
-	
-	Future<void> loadInitialData() async {
-		final stableState = state;
-		try {
-		  emit(state.copyWith(isLoading: true));
-	
-		  // TODO your code here
-	
-		  emit(state.copyWith(isLoading: false));
-		} catch (error) {
-		  emit(state.copyWith(error: error.toString()));
-		  emit(stableState.copyWith(isLoading: false));
-		}
-	}
+  LocationCubit() : super(LocationInitial());
 }
