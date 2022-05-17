@@ -26,11 +26,30 @@ class _HomeScreenState extends State<HomeScreen> with SecureStorage {
   List<MessageBubble> _items = [];
   String? _chatText;
 
+  static const platform = const MethodChannel("flutter.native/helper");
+
+  void _openKeyboard() async {
+    String res = "";
+    try {
+      final String result = await platform.invokeMethod("helloFromNative");
+      res = result;
+    } on PlatformException catch (e) {
+      print(e);
+    }
+    setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
+        actions: [
+          IconButton(
+            onPressed: _openKeyboard,
+            icon: Icon(Icons.keyboard),
+          )
+        ],
         title: Text(
           'Chat',
         ),
